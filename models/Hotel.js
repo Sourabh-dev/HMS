@@ -25,8 +25,15 @@ const Hotel = db.define('hotel', {
     contact: {
         type: Sequelize.STRING
     }
+}, {
+    timestamps: false,  // I do want timestamps here
 });
+
+// -------------- Relations -----------------------
 Hotel.belongsTo(City, { foreignKey: 'city_id' })
+
+
+// ----------- Custom -----------------------
 
 Hotel.relationList = [
     {
@@ -35,6 +42,7 @@ Hotel.relationList = [
         where: {}     
     }
 ]
+
 Hotel.customFieldList = {
     name: {
         type: 'Text',
@@ -83,10 +91,9 @@ Hotel.customList = {
     name: {
         as : 'Name'
     },
-    city_id: {
-        as : 'City',
-        relation : '',
-        relatedField : 'name'
+    city: {
+        as : 'City'
     }
 }
+
 module.exports = Hotel;

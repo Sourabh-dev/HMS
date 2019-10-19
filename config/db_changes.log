@@ -1,0 +1,11 @@
+ALTER TABLE bookings CHANGE created_at createdAt timestamp;
+ALTER TABLE bookings CHANGE updated_at updatedAt timestamp DEFAULT CURRENT_TIMESTAMP ;
+
+ALTER TABLE booking_hotel_sevice CHANGE created_at createdAt timestamp;
+ALTER TABLE booking_hotel_sevice CHANGE updated_at updatedAt timestamp DEFAULT CURRENT_TIMESTAMP ;
+
+ALTER TABLE payments CHANGE created_at createdAt timestamp;
+ALTER TABLE payments CHANGE updated_at updatedAt timestamp DEFAULT CURRENT_TIMESTAMP ;
+
+ALTER TABLE users CHANGE created_at createdAt timestamp;
+ALTER TABLE users CHANGE updated_at updatedAt timestamp DEFAULT CURRENT_TIMESTAMP ;
