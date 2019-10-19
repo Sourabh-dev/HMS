@@ -8,7 +8,30 @@ const City = db.define('city', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
-    },
+    }
+}, {
+    timestamps: false,  // I do want timestamps here
 });
 
+City.customFieldList = {
+    name : {
+        type : 'Text',
+        relation : '',
+        placeholder : 'Name',
+        label : 'Name',
+        value : '',
+        relatedField : '',
+        options : [],
+        required : true
+    },
+}
+
+City.customList = {
+    id: {
+        as: 'ID'
+    },
+    name : {
+        as : 'Name'
+    }
+}
 module.exports = City;
