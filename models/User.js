@@ -10,7 +10,7 @@ const User = db.define('user', {
         allowNull: false
     },
     password: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: false
     },
     address: {
@@ -18,7 +18,7 @@ const User = db.define('user', {
         allowNull: true
     },
     ph_no: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: true,
     },
     type: {
@@ -26,12 +26,10 @@ const User = db.define('user', {
         values: ['ADMIN', 'USER']
     },
     createdAt: {
-        type: Sequelize.TIME,
-        field: 'created_at'
+        type: Sequelize.TIME
     },
     updatedAt: {
-        type: Sequelize.TIME,
-        field: 'updated_at'
+        type: Sequelize.TIME
     },
 });
 
