@@ -1,19 +1,18 @@
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <!-- Icon -->
-        <div>
-            <a class="underlineHover" href="#" style="font-size: 50px;"><i class="fa fa-user"></i></a>
-        </div>
-        <!-- Login Form -->
-        <form method="POST" action="/login">
-            <input type="text" id="login" class="fadeIn second" name="email" placeholder="Email">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
-        </form>
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-        </div>
+<hgroup>
+    <h1>Bright Hotel</h1>
+    <h3>Admin Panel</h3>
+</hgroup>
+<form method="POST" action="/login" id="login">
+    <div class="group">
+        <input type="email" name="email" required="required" id="email"><span class="highlight"></span><span class="bar"></span>
+        <label>Email</label>
     </div>
-</div>
+    <div class="group">
+        <input type="password" name="password" required="required" id="password"><span class="highlight"></span><span class="bar"></span>
+        <label>Password</label>
+    </div>
+    <button type="submit" class="button buttonBlue" id="loginFormSubmit">Login
+        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+    </button>
+    {{message}}
+</form>

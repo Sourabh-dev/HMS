@@ -5,10 +5,22 @@ exports.create = function (req, res){
     var model = req.params.model;
 }
 
+exports.dashboard = function (req, res) {
+    res.render('dashboard');
+}
+
+exports.getListing = function (req, res){
+    model = getModelObject(req.params.model);
+    customList = model.customList;
+    response = [];
+    for (var key in customList) {
+        response.push({data : model.customList[key].as})
+    }
+    res.render('common/list', { headers: response, model: req.params.model});
+}
+
 exports.getList = function (req, res) {
-    modelName = req.params.model;
-    modelName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
-    model = require('../models/'+modelName)
+    model = getModelObject(req.params.model);
     customList = model.customList;
     const relations = model.relationList;
     const listArray = [];
@@ -32,5 +44,13 @@ function resolve(result, res){
             response[i][index] = (typeof (result[i][ckey]) == "object") ? result[i][ckey].name : result[i][ckey]
         }
     }
-    res.send(response);
+    res.send({
+        data: response
+    });
+}
+
+function getModelObject(modelName){
+    modelName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
+    model = require('../models/' + modelName)
+    return model
 }

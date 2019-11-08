@@ -29,15 +29,20 @@ db.authenticate()
     .then(() => console.log('connected'))
     .catch((err) => console.log('Error Occoured', err))
 
+// Auth Middleware
+const authMiddleware = require("./Middlewares/AuthMiddleware");
 
 //Routes
 const adminRoutes = require('./routes/admin')
 const authRoutes = require('./routes/auth')
+const AuthController = require('./Controllers/AuthController');
 app.get('/', (req, res) => {
     req.session.user = {};
     req.session.userId = null;
-    res.render('home');
+    res.render('home', {layout: 'other', message: req.message});
 });
-app.use('/admin', adminRoutes);
+app.post('/login', AuthController.login);
+app.get('/logout', AuthController.logout);
+app.use('/admin', authMiddleware, adminRoutes);
 app.use('/', authRoutes);
 app.listen(PORT, console.log(`Server is running at http://localhost:${PORT}`));
