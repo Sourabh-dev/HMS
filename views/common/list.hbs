@@ -7,11 +7,13 @@
                 </section>
                 <section class="mdc-card__supporting-text">
                     <table id="{{model}}">
+                        <thead>
                         {{#each headers}}
                             <th>{{this.data}}</th>
                         {{/each}}
+                        </thead>
                     </table>
-                    <input type="hidden" id="headers" value="{{ JSON.stringify(headers) }}" />
+                    <input type="hidden" id="headers" value="{{ header_string }}" />
                 </section>
             </div>
         </div>
@@ -24,11 +26,10 @@
             'method': "GET",
             'contentType': 'application/json'
         }).done(function (data) {
-            console.log(data);
+            console.log(data.data);
             $('#{{model}}').dataTable({
-                "data": data,
-                "autoWidth": true,
-                "columns": JSON.decode($(#headers).val())
-            })
+                "data": data.data,
+                "columns": JSON.parse($("#headers").val())
+            });
         })
 </script>

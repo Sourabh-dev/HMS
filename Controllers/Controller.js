@@ -16,7 +16,7 @@ exports.getListing = function (req, res){
     for (var key in customList) {
         response.push({data : model.customList[key].as})
     }
-    res.render('common/list', { headers: response, model: req.params.model});
+    res.render('common/list', { headers: response, model: req.params.model, header_string: JSON.stringify(response) });
 }
 
 exports.getList = function (req, res) {

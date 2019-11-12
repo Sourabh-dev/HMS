@@ -32,5 +32,18 @@ const User = db.define('user', {
         type: Sequelize.TIME
     },
 });
-
+User.customList = {
+    id: {
+        as: 'ID'
+    },
+    email: {
+        as: 'Name'
+    },
+    address: {
+        as: 'Address'
+   },
+   ph_no:{
+       as: 'Phone'
+   }
+}
 module.exports = User;
