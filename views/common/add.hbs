@@ -1,0 +1,42 @@
+<div class="mdc-layout-grid">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+            <section class="mdc-card__primary">
+                <h1 class="mdc-card__title mdc-card__title--large">Add {{ model }}</h1>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid">
+    <div class="mdc-layout-grid__inner">
+        {{#each fields}}
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10">
+                <div class="mdc-card">
+                    <section class="mdc-card__primary">
+                        <h1 class="mdc-card__title mdc-card__title--large">{{this.label}}</h1>
+                    </section>
+                    {{#if this.type.equals('Text')}}
+                        <section class="mdc-card__supporting-text">
+                            <div class="mdc-layout-grid__inner">
+                                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10-desktop">
+                                    <div class="template-demo">
+                                        <div id="demo-tf-box-wrapper">
+                                            <div id="tf-box-example" class="mdc-text-field mdc-text-field--box w-100">
+                                                <input required=""  type="text" class="mdc-text-field__input" name="name">
+                                                <label for="tf-box" class="mdc-text-field__label">Your Name</label>
+                                                <div class="mdc-text-field__bottom-line"></div>
+                                            </div>
+                                            <p class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg"
+                                                id="name-validation-msg"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    {{/if}}
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+

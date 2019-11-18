@@ -46,4 +46,40 @@ User.customList = {
        as: 'Phone'
    }
 }
+User.extraWhere = {
+    type: 'USER'
+}
+
+User.customFieldList = {
+    email: {
+        type: 'Email',
+        relation: '',
+        placeholder: 'Enter Email',
+        label: 'Email',
+        value: '',
+        relatedField: '',
+        options: [],
+        required: true
+    },
+    address: {
+        type: 'Textarea',
+        relation: '',
+        placeholder: 'Enter Address',
+        label: 'Address',
+        value: '',
+        relatedField: '',
+        options: [],
+        required: true
+    },
+    ph_no : {
+        type: 'Text',
+        relation: '',
+        placeholder: 'Enter Phone no',
+        label: 'Phone',
+        value: '',
+        relatedField: '',
+        options: [],
+        required: true
+    }
+}
 module.exports = User;

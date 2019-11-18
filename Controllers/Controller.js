@@ -2,7 +2,10 @@ var modelName = ''
 let model = null
 let customList = [];
 exports.create = function (req, res){
-    var model = req.params.model;
+    model = getModelObject(req.params.model);
+    fieldsArray = model.customFieldList;
+    const obj = {};
+    res.render('common/add', { object: obj, fields: fieldsArray});   
 }
 
 exports.dashboard = function (req, res) {
@@ -16,7 +19,7 @@ exports.getListing = function (req, res){
     for (var key in customList) {
         response.push({data : model.customList[key].as})
     }
-    res.render('common/list', { headers: response, model: req.params.model, header_string: JSON.stringify(response) });
+    res.render('common/list', { headers: response, model: req.params.model, header_string: JSON.stringify(response)});
 }
 
 exports.getList = function (req, res) {
@@ -27,8 +30,10 @@ exports.getList = function (req, res) {
     for (var key in model.customList) {
         listArray.push([key, model.customList[key].as])
     }
+    const whereQuery = (model.extraWhere) ? model.extraWhere : {};
     model.findAll({
-        include: relations
+        include: relations,
+        where: whereQuery
     }
     ).then((result)=>{
         resolve(result, res);

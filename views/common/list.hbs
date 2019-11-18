@@ -1,12 +1,27 @@
 <div class="mdc-layout-grid">
     <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-1">
+            <div class="mdc-card">
+                <a 
+                    class="btn btn-info btn-circle" 
+                    style="color: white; float: right;"
+                    href="/admin/add/{{model}}"
+                >
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid">
+    <div class="mdc-layout-grid__inner">
         <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
             <div class="mdc-card">
                 <section class="mdc-card__primary">
                     <h1 class="mdc-card__title mdc-card__title--large">{{ model }}</h1>
                 </section>
                 <section class="mdc-card__supporting-text">
-                    <table id="{{model}}">
+                    <table id="{{model}}"  class="table table-striped table-bordered">
                         <thead>
                         {{#each headers}}
                             <th>{{this.data}}</th>
@@ -29,7 +44,8 @@
             console.log(data.data);
             $('#{{model}}').dataTable({
                 "data": data.data,
-                "columns": JSON.parse($("#headers").val())
+                "columns": JSON.parse($("#headers").val()),
+                "autoWidth": false
             });
         })
 </script>
