@@ -17,7 +17,7 @@ City.customFieldList = {
     name : {
         type : 'Text',
         relation : '',
-        placeholder : 'Name',
+        placeholder : 'Enter Name',
         label : 'Name',
         value : '',
         relatedField : '',

@@ -5,7 +5,7 @@ exports.create = function (req, res){
     model = getModelObject(req.params.model);
     fieldsArray = model.customFieldList;
     const obj = {};
-    res.render('common/add', { object: obj, fields: fieldsArray});   
+    res.render('common/add', { object: obj, fields: fieldsArray, model: req.params.model});   
 }
 
 exports.dashboard = function (req, res) {

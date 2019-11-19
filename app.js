@@ -16,7 +16,12 @@ app.use(bodyParser.urlencoded({
 const PORT = process.env.PORT || 5000;
 
 // Setting up Template engine
-app.engine('hbs', handlebars({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname+'/views/layouts'}));
+app.engine('hbs', handlebars({
+    extname: 'hbs', 
+    defaultLayout: 'layout', 
+    layoutsDir: __dirname+'/views/layouts',
+    helpers: require('./config/handlebar_helper')
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
