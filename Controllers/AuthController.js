@@ -21,7 +21,7 @@ exports.login = function (req, res) {
         }
         else{
             var qs = querystring.stringify(errorResponse);
-            res.redirect('/?' + qs)
+            res.redirect('/?message=Invalid Credentials');
         }
     })
 }

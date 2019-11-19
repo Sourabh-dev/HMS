@@ -34,6 +34,9 @@
         </div>
     </div>
 </div>
+{{#if message}}
+    <div id="snackbar">{{message}}</div>
+{{/if}}
 
 <script>
     $.ajax({
@@ -47,5 +50,10 @@
                 "columns": JSON.parse($("#headers").val()),
                 "autoWidth": false
             });
-        })
+        });
+    {{#if message}}
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    {{/if}}
 </script>

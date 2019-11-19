@@ -7,30 +7,33 @@
     
 <div class="mdc-layout-grid">
     <div class="row">
-        <form class="col s12" action="/add/{{model}}" method="POST">
+        <form class="col s12" action="/admin/save/{{model}}" method="POST">
             {{#each fields}}
                 <div class="row">
                     <div class="input-field col s12">
                         {{#ifeq this.type 'Text' }}
-                            <input placeholder="Placeholder" id="{{@index}}" type="text" class="validate" name="{{@index}}"
-                            required="{{this.required}}">
+                            <input placeholder="{{this.placeholder}}" id="{{@key}}" type="text" class="validate" name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
                         {{/ifeq}}
                         {{#ifeq this.type 'Email' }}
-                            <input placeholder="Placeholder" id="{{@index}}" type="email" class="validate" name="{{@index}}"
-                            required="{{this.required}}">
+                            <input placeholder="{{this.placeholder}}" id="{{@key}}" type="email" class="validate" name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
+                        {{/ifeq}}
+                        {{#ifeq this.type 'Password' }}
+                            <input placeholder="{{this.placeholder}}" id="{{@key}}" type="password" class="validate" name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
                         {{/ifeq}}
                         {{#ifeq this.type 'Textarea' }}
-                            <textarea id="{{@index}}" class="materialize-textarea" name="{{@index}}" required="{{this.required}}"
-                            data-length="300"></textarea>
+                            <textarea id="{{@key}}" class="materialize-textarea" name="{{@key}}" required="{{this.required}}" data-length="300" placeholder="{{this.placeholder}}">{{this.value}}</textarea>
                         {{/ifeq}} 
-                        <label for="{{@index}}">{{this.label}}</label>
+                        <label for="{{@key}}">{{this.label}}</label>
                     </div>
                 </div>
             {{/each}}
+
+            {{#if message}}
             <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+            {{/if}}
             <div class="row">
                 <div class="col s12">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit <i
+                    <button class="btn waves-effect waves-light" type="submit">Submit <i
                             class="material-icons right">send</i>
                     </button>
                 </div>

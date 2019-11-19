@@ -61,6 +61,16 @@ User.customFieldList = {
         options: [],
         required: true
     },
+    password: {
+        type: 'Password',
+        relation: '',
+        placeholder: 'Enter Password',
+        label: 'Password',
+        value: '',
+        relatedField: '',
+        options: [],
+        required: true
+    },
     address: {
         type: 'Textarea',
         relation: '',

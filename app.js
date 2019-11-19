@@ -44,7 +44,7 @@ const AuthController = require('./Controllers/AuthController');
 app.get('/', (req, res) => {
     req.session.user = {};
     req.session.userId = null;
-    res.render('home', {layout: 'other', message: req.message});
+    res.render('home', {layout: 'other', message: req.query.message});
 });
 app.post('/login', AuthController.login);
 app.get('/logout', AuthController.logout);

@@ -19,7 +19,7 @@ exports.getListing = function (req, res){
     for (var key in customList) {
         response.push({data : model.customList[key].as})
     }
-    res.render('common/list', { headers: response, model: req.params.model, header_string: JSON.stringify(response)});
+    res.render('common/list', { headers: response, model: req.params.model, header_string: JSON.stringify(response), message: req.query.message});
 }
 
 exports.getList = function (req, res) {
@@ -40,13 +40,24 @@ exports.getList = function (req, res) {
     }).catch(console.error);
 }
 
+exports.save = function (req, res){
+    model = getModelObject(req.params.model);
+    obj = req.body;
+    model.create(obj)
+        .then(newUser => {
+            res.redirect('/admin/listing/'+req.params.model+'?message=Data Inserted')
+          })
+        .catch(console.error);
+}
+
 function resolve(result, res){
     response = [];
+    console.log(result);
     for (var i=0; i<result.length; i++) {
         response[i] = {}
         for(var ckey in customList){
             var index = customList[ckey].as;
-            response[i][index] = (typeof (result[i][ckey]) == "object") ? result[i][ckey].name : result[i][ckey]
+            response[i][index] = ((typeof (result[i][ckey]) == "object") && result[i][ckey]!= null) ? result[i][ckey].name : result[i][ckey]
         }
     }
     res.send({
