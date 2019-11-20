@@ -13,6 +13,19 @@ const Service = db.define('service', {
     timestamps: false,  // I do want timestamps here
 });
 
+Service.customFieldList = {
+    name: {
+        type: 'Text',
+        relation: '',
+        placeholder: 'Enter Name',
+        label: 'Name',
+        value: '',
+        relatedField: '',
+        options: [],
+        required: true
+    },
+}
+
 Service.customList = {
     id: {
         as: 'ID'

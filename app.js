@@ -40,7 +40,9 @@ const authMiddleware = require("./Middlewares/AuthMiddleware");
 //Routes
 const adminRoutes = require('./routes/admin')
 const authRoutes = require('./routes/auth')
-const AuthController = require('./Controllers/AuthController');
+const AuthControllerClass = require('./Controllers/AuthController');
+const AuthController = new AuthControllerClass;
+
 app.get('/', (req, res) => {
     req.session.user = {};
     req.session.userId = null;
