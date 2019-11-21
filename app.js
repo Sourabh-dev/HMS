@@ -50,6 +50,8 @@ app.get('/', (req, res) => {
 });
 app.post('/login', AuthController.login);
 app.get('/logout', AuthController.logout);
-app.use('/admin', authMiddleware, adminRoutes);
+// app.use('/admin', authMiddleware, adminRoutes);
+
+app.use('/admin', adminRoutes);
 app.use('/', authRoutes);
 app.listen(PORT, console.log(`Server is running at http://localhost:${PORT}`));
