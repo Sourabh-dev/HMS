@@ -38,6 +38,7 @@
     <div id="snackbar">{{message}}</div>
 {{/if}}
 
+<script type="text/javascript" src="Editor-1.9.2/js/dataTables.editor.js"></script>
 <script>
     $.ajax({
             'url': "/admin/list/{{model}}",
@@ -45,15 +46,19 @@
             'contentType': 'application/json'
         }).done(function (data) {
             console.log(data.data);
-            $('#{{model}}').dataTable({
+            var myTable = $('#{{model}}').dataTable({
                 "data": data.data,
                 "columns": JSON.parse($("#headers").val()),
                 "autoWidth": false
             });
+            $('#{{model}}').on('click', 'tbody tr', function () {
+                myTable.row(this).edit();
+            });
         });
+    
     {{#if message}}
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     {{/if}}
 </script>

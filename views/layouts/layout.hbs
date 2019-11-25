@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bright Hotel Admin</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    {{!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
-    {{!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
     <script src="/js/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/materialdesignicons.min.css">
@@ -48,5 +46,16 @@
     <script src="/js/datatable.js"></script>
     <script src="/js/materialize.min.js"></script>
     <script src="/js/datatables.editor.min.js"></script>
+    <script>
+        $(document)
+        .ajaxStart(function () {
+            $(".progress").style('display', 'block');
+            console.log('started');
+        })
+        .ajaxComplete(function () {
+            $(".progress").style('display', 'none');
+            console.log('ended');
+        });
+    </script>
 </body>
 </html>
