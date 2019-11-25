@@ -7,13 +7,16 @@ class Controller {
         this.getListing = this.getListing.bind(this);
         this.getList = this.getList.bind(this);
         this.save = this.save.bind(this);
+        this.getModelObj = this.getModelObj.bind(this);
         this.resolve = this.resolve.bind(this);
+        this.edit = this.edit.bind(this);
         this.modelName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
-        this.model = require('../models/' + modelName)
+        this.model = {};
     }
     
     create (req, res){
-        fieldsArray = this.model.customFieldList;
+        this.getModelObj();
+        var fieldsArray = this.model.customFieldList;
         const obj = {};
         res.render('common/add', { object: obj, fields: fieldsArray, model: this.modelName});   
     }
@@ -23,25 +26,26 @@ class Controller {
     }
     
     getListing (req, res){
-        var model = this.getModelObject();
-        var customList = model.customList;
+        this.getModelObj();
+        var customList = this.model.customList;
         var response = [];
         for (var key in customList) {
-            response.push({data : model.customList[key].as})
+            response.push({data : customList[key].as})
         }
+        response.push({ data: 'Action' })
         res.render('common/list', { headers: response, model: this.modelName, header_string: JSON.stringify(response), message: req.query.message});
     }
     
     getList (req, res) {
-        var model = this.getModelObject();
-        var customList = model.customList;
-        const relations = model.relationList;
+        this.getModelObj();
+        var customList = this.model.customList;
+        const relations = this.model.relationList;
         const listArray = [];
-        for (var key in model.customList) {
-            listArray.push([key, model.customList[key].as])
+        for (var key in customList) {
+            listArray.push([key, customList[key].as])
         }
-        const whereQuery = (model.extraWhere) ? model.extraWhere : {};
-        model.findAll({
+        const whereQuery = (this.model.extraWhere) ? this.model.extraWhere : {};
+        this.model.findAll({
             include: relations,
             where: whereQuery
         }
@@ -51,7 +55,7 @@ class Controller {
     }
     
     save (req, res){
-        model = this.getModelObject();
+        this.getModelObj();
         obj = req.body;
         model.create(obj)
             .then(newUser => {
@@ -68,11 +72,31 @@ class Controller {
                 var index = customList[ckey].as;
                 response[i][index] = ((typeof (result[i][ckey]) == "object") && result[i][ckey]!= null) ? result[i][ckey].name : result[i][ckey]
             }
+            response[i]['Action'] = '<a href="/admin/edit/' + this.modelName.toLowerCase() +'/'+result[i].id+'"><i class="fa fa-pencil"></i></a>';
         }
         res.send({
             data: response
         });
     }
     
+    getModelObj(){
+        this.model = require('../models/' + this.modelName);
+    }
+
+    edit(req, res){
+        this.getModelObj();
+        var fieldsArray = this.model.customFieldList;
+        this.model.findAll({
+            limit: 1,
+            where: {
+                id: req.params.id
+            }
+        }).then((result) => {
+            const obj = result;
+            res.render('common/add', { object: obj, fields: fieldsArray, model: this.modelName }); 
+            console.log(result);
+        }).catch(console.error);
+        
+    }
 }
 module.exports = Controller;
