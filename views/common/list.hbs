@@ -51,11 +51,13 @@
                 "columns": JSON.parse($("#headers").val()),
                 "autoWidth": false
             });
-            $('#{{model}}').on('click', 'tbody tr', function () {
-                myTable.row(this).edit();
-            });
         });
     
+    $(document).on('click', '.del', function(e){
+        e.preventDefault();
+        var id = $(this).data("idx");
+        alert(id);
+    });
     {{#if message}}
         var x = document.getElementById("snackbar");
         x.className = "show";

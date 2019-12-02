@@ -72,7 +72,8 @@ class Controller {
                 var index = customList[ckey].as;
                 response[i][index] = ((typeof (result[i][ckey]) == "object") && result[i][ckey]!= null) ? result[i][ckey].name : result[i][ckey]
             }
-            response[i]['Action'] = '<a href="/admin/edit/' + this.modelName.toLowerCase() +'/'+result[i].id+'"><i class="fa fa-pencil"></i></a>';
+            response[i]['Action'] = '<a class="waves-effect waves-light btn-small" href="/admin/edit/' + this.modelName.toLowerCase() +'/'+result[i].id+'"><i class="fa fa-pencil"></i></a>';
+            response[i]['Action'] += '<a href="#" class="waves-effect waves-light btn-small del" data-idx="'+ result[i].id + '"><i class="fa fa-trash"></i></a>';
         }
         res.send({
             data: response
