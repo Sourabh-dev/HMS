@@ -10,6 +10,7 @@ class Controller {
         this.getModelObj = this.getModelObj.bind(this);
         this.resolve = this.resolve.bind(this);
         this.edit = this.edit.bind(this);
+        this.delete = this.delete.bind(this);
         this.modelName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
         this.model = {};
     }
@@ -56,9 +57,9 @@ class Controller {
     
     save (req, res){
         this.getModelObj();
-        obj = req.body;
-        model.create(obj)
-            .then(newUser => {
+        var obj = req.body;
+        this.model.create(obj)
+            .then(op => {
                 res.redirect('/admin/listing/'+this.modelName+'?message=Data Inserted')
               })
             .catch(console.error);
@@ -87,17 +88,29 @@ class Controller {
     edit(req, res){
         this.getModelObj();
         var fieldsArray = this.model.customFieldList;
+        var fieldsToSelect = Object.keys(fieldsArray);
         this.model.findAll({
             limit: 1,
+            select: fieldsToSelect,
             where: {
                 id: req.params.id
             }
         }).then((result) => {
             const obj = result;
-            res.render('common/add', { object: obj, fields: fieldsArray, model: this.modelName }); 
+            res.render('common/add', { fields: fieldsArray, model: this.modelName }); 
             console.log(result);
         }).catch(console.error);
         
+    }
+
+    delete(req, res){
+        this.getModelObj();
+        this.model.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.send('done');
     }
 }
 module.exports = Controller;

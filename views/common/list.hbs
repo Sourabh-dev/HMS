@@ -34,13 +34,13 @@
         </div>
     </div>
 </div>
-{{#if message}}
-    <div id="snackbar">{{message}}</div>
-{{/if}}
 
-<script type="text/javascript" src="Editor-1.9.2/js/dataTables.editor.js"></script>
+<div id="snackbar"></div>
+
+
 <script>
-    $.ajax({
+    $(function(){
+        $.ajax({
             'url': "/admin/list/{{model}}",
             'method': "GET",
             'contentType': 'application/json'
@@ -53,14 +53,26 @@
             });
         });
     
-    $(document).on('click', '.del', function(e){
-        e.preventDefault();
-        var id = $(this).data("idx");
-        alert(id);
+        $(document).on('click', '.del', function(e){
+            e.preventDefault();
+            var id = $(this).data("idx");
+            if(confirm("Are you sure you want to delete this record?")){
+                $.get("/admin/delete/{{model}}/"+id, function(data, status){
+                    showSnackbar("Record deleted");
+                    location.reload();
+                });
+            }
+        });
+
+        function showSnackbar(message){
+            var x = document.getElementById("snackbar");
+            x.innerHTML = message;
+            x.className = "show";   
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+        {{#if message}}
+            showSnackbar("{{message}}");
+        {{/if}}
     });
-    {{#if message}}
-        var x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    {{/if}}
+    
 </script>

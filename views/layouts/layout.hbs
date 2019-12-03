@@ -45,16 +45,13 @@
     <script src="/js/material.js"></script>
     <script src="/js/datatable.js"></script>
     <script src="/js/materialize.min.js"></script>
-    <script src="/js/datatables.editor.min.js"></script>
     <script>
         $(document)
         .ajaxStart(function () {
-            $(".progress").style('display', 'block');
-            console.log('started');
+            $(".progress").fadeIn();
         })
         .ajaxComplete(function () {
-            $(".progress").style('display', 'none');
-            console.log('ended');
+            $(".progress").fadeOut();
         });
     </script>
 </body>
