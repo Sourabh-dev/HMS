@@ -11,6 +11,7 @@ class Controller {
         this.resolve = this.resolve.bind(this);
         this.edit = this.edit.bind(this);
         this.delete = this.delete.bind(this);
+        this.update = this.update.bind(this);
         this.modelName = modelName.charAt(0).toUpperCase() + modelName.slice(1);
         this.model = {};
     }
@@ -96,11 +97,22 @@ class Controller {
                 id: req.params.id
             }
         }).then((result) => {
-            const obj = result;
-            res.render('common/add', { fields: fieldsArray, model: this.modelName }); 
-            console.log(result);
+            const obj = result[0];
+            for (var ckey in fieldsArray){
+                fieldsArray[ckey].value = obj[ckey];
+            }
+            res.render('common/edit', { fields: fieldsArray, model: this.modelName, obj: obj }); 
         }).catch(console.error);
-        
+    }
+
+    update(req, res){
+        this.getModelObj();
+        var obj = req.body;
+        this.model.findByPk(req.params.id).then(instance => {
+            return instance.update(obj)
+        }).then(instance => {
+            res.redirect('/admin/listing/' + this.modelName + '?message=Data Updated')
+        }).catch(console.error)
     }
 
     delete(req, res){

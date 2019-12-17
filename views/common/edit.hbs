@@ -1,0 +1,46 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <section class="mdc-card__primary">
+        <h1 class="mdc-card__title mdc-card__title--large">Update {{ model }}</h1>
+    </section>
+</div>
+
+<div class="mdc-layout-grid">
+    <div class="row">
+        <form class="col s12" action="/admin/update/{{model}}/{{obj.id}}" method="POST">
+            {{#each fields}}
+            <div class="row">
+                <div class="input-field col s12">
+                    {{#ifeq this.type 'Text' }}
+                    <input placeholder="{{this.placeholder}}" id="{{@key}}" type="text" class="validate" name="{{@key}}"
+                        required="{{this.required}}" value="{{this.value}}">
+                    {{/ifeq}}
+                    {{#ifeq this.type 'Email' }}
+                    <input placeholder="{{this.placeholder}}" id="{{@key}}" type="email" class="validate"
+                        name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
+                    {{/ifeq}}
+                    {{#ifeq this.type 'Password' }}
+                    <input placeholder="{{this.placeholder}}" id="{{@key}}" type="password" class="validate"
+                        name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
+                    {{/ifeq}}
+                    {{#ifeq this.type 'Textarea' }}
+                    <textarea id="{{@key}}" class="materialize-textarea" name="{{@key}}" required="{{this.required}}"
+                        data-length="300" placeholder="{{this.placeholder}}">{{this.value}}</textarea>
+                    {{/ifeq}}
+                    <label for="{{@key}}">{{this.label}}</label>
+                </div>
+            </div>
+            {{/each}}
+
+            {{#if message}}
+            <span class="helper-text" data-error="wrong" data-success="right">message</span>
+            {{/if}}
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn waves-effect waves-light" type="submit">Submit <i
+                            class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

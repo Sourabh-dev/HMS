@@ -18,6 +18,7 @@ router.get('/add/user/', UserController.create);
 router.post('/save/user/', UserController.save);
 router.get('/edit/user/:id', UserController.edit);
 router.get('/delete/user/:id', UserController.delete);
+router.post('/update/user/:id', UserController.update);
 
 router.get('/list/city', CityController.getList);
 router.get('/listing/city', CityController.getListing);
@@ -25,6 +26,7 @@ router.get('/add/city/', CityController.create);
 router.post('/save/city/', CityController.save);
 router.get('/edit/city/:id', CityController.edit);
 router.get('/delete/city/:id', CityController.delete);
+router.post('/update/city/:id', CityController.update);
 
 
 router.get('/list/service', ServiceController.getList);
@@ -33,5 +35,7 @@ router.get('/add/service/', ServiceController.create);
 router.post('/save/service/', ServiceController.save);
 router.get('/edit/service/:id', ServiceController.edit);
 router.get('/delete/service/:id', ServiceController.delete);
+router.post('/update/service/:id', ServiceController.update);
+
 
 module.exports = router
