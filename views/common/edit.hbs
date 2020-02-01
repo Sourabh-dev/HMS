@@ -13,20 +13,39 @@
                     {{#ifeq this.type 'Text' }}
                     <input placeholder="{{this.placeholder}}" id="{{@key}}" type="text" class="validate" name="{{@key}}"
                         required="{{this.required}}" value="{{this.value}}">
+                        <label for="{{@key}}">{{this.label}}</label>
                     {{/ifeq}}
                     {{#ifeq this.type 'Email' }}
                     <input placeholder="{{this.placeholder}}" id="{{@key}}" type="email" class="validate"
                         name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
+                        <label for="{{@key}}">{{this.label}}</label>
                     {{/ifeq}}
                     {{#ifeq this.type 'Password' }}
                     <input placeholder="{{this.placeholder}}" id="{{@key}}" type="password" class="validate"
                         name="{{@key}}" required="{{this.required}}" value="{{this.value}}">
+                        <label for="{{@key}}">{{this.label}}</label>
                     {{/ifeq}}
                     {{#ifeq this.type 'Textarea' }}
                     <textarea id="{{@key}}" class="materialize-textarea" name="{{@key}}" required="{{this.required}}"
                         data-length="300" placeholder="{{this.placeholder}}">{{this.value}}</textarea>
+                        <label for="{{@key}}">{{this.label}}</label>
                     {{/ifeq}}
+
+                    {{#ifeq this.type 'Number' }}
+                    <input placeholder="{{this.placeholder}}" id="{{@key}}" type="number" class="validate" name="{{@key}}"
+                        required="{{this.required}}" value="{{this.value}}">
                     <label for="{{@key}}">{{this.label}}</label>
+                    {{/ifeq}}
+                    
+                    {{#ifeq this.type 'Select' }}
+                    <select placeholder="{{this.placeholder}}" id="{{@key}}" type="number" name="{{@key}}" required="{{this.required}}"
+                        value="{{this.value}}" class="validate">
+                        {{#each this.options}}
+                            <option value="{{this.id}}">{{this.value}}</option>
+                        {{/each}}
+                    </select>
+                    <label for="{{@key}}">{{this.label}}</label>
+                    {{/ifeq}}
                 </div>
             </div>
             {{/each}}
@@ -44,3 +63,16 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function () {
+        $('select').formSelect();
+    });
+</script>

@@ -1,15 +1,14 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
+const User = require('./User');
+const Room = require('./Room')
+
 const Booking = db.define('booking', {
     id : {
         type : Sequelize.INTEGER,
         primaryKey: true,
     },
     user_id : {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    hotel_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -35,94 +34,44 @@ const Booking = db.define('booking', {
         values: ['BOOKED', 'PAID', 'CANCELLED', 'REFUND']
     },
     createdAt: {
-        type: Sequelize.TIME,
-        field: 'created_at'
+        type: Sequelize.TIME
     },
     updatedAt: {
-        type: Sequelize.TIME,
-        field: 'updated_at'
+        type: Sequelize.TIME
     },
 });
 
-Booking.customFieldList = {
-    name: {
-        type: 'Text',
-        relation: '',
-        placeholder: 'Name',
-        label: 'Name',
-        value: '',
-        relatedField: '',
-        options: [],
-        required: true
+// -------------- Relations -----------------
+Booking.belongsTo(User, { foreignKey: 'user_id' })
+Booking.belongsTo(Room, { foreignKey: 'room_id' })
+// ----------- Custom -----------------------
+Booking.relationList = [
+    {
+        model: User,
+        as: 'user',
+        where: {}
     },
-    user_id: {
-        type: 'Text',
-        relation: 'user',
-        placeholder: 'Customer',
-        label: 'Customer',
-        value: '',
-        relatedField: 'name',
-        required: true,
-        options: [],
-    },
-    hotel_id: {
-        type: 'Text',
-        relation: 'hotel',
-        placeholder: 'Name of Hotel',
-        label: 'Name of Hotel',
-        value: '',
-        relatedField: 'name',
-        required: true,
-        options: [],
-    },
-    room_id: {
-        type: 'Text',
-        relation: 'room',
-        placeholder: 'Name of Room',
-        label: 'Name of Room',
-        value: '',
-        relatedField: 'name',
-        required: true,
-        options: [],
-    },
-    check_in: {
-        type: 'DatePicker',
-        relation: '',
-        placeholder: 'Checked In',
-        label: 'Checked In',
-        value: '',
-    },
-    check_out: {
-        type: 'DatePicker',
-        relation: '',
-        placeholder: 'Checked Out',
-        label: 'Checked Out',
-        value: '',
-    },
-    payment_id: {
-        type: 'Text',
-        relation: 'payment',
-        placeholder: 'Payment',
-        label: 'Payment',
-        value: '',
-        relatedField: 'ammount',
-        required: true,
-        options: [],
+    {
+        model: Room,
+        as: 'room',
+        where: {}
+    }
+]
+
+
+Booking.customList = {
+    id: {
+        as: 'ID'
     },
     amount: {
-        type: 'Number',
-        relation: '',
-        placeholder: 'Amount',
-        label: 'Amount',
-        value: '',
+        as: 'Amount'
     },
-    type: {
-        type: 'SingleSelect',
-        label: 'Type of Room',
-        value: '',
-        required: true,
-        options: ['BOOKED', 'PAID', 'CANCELLED', 'REFUND']
+    type:{
+        as: 'Status'
+    },
+    user: {
+        as: 'User'
     }
+    
 }
-
 module.exports = Booking;
